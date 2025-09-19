@@ -1,2 +1,1 @@
-# timmassophotos.github.io
-photo site
+# timmasso.github.io

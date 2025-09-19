@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ page.title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: #222;
+      background: #fff;
+      box-sizing: border-box;
+      line-height: 1.6;
+      width: 100vw;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100vw;
+      margin: 0;
+      padding: 1.5rem 1rem;
+      box-sizing: border-box;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: #1a73e8;
+      transition: color 0.3s ease;
+    }
+    a.back-link:hover {
+      color: #155ab6;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="{{ page.back_home_url }}">{{ page.back_home_text }}</a>
+
+    <div class="photo-grid">
+      {% assign photos = site.static_files 
+         | where_exp:"file","file.path contains '/assets/photos/2024/December/' and file.extname matches '^\\.(jpg|jpeg|png|gif|webp|svg)$'" 
+         | uniq %}
+      {% for file in photos %}
+        <div class="photo-item">
+          <img src="{{ file.path | relative_url }}" alt="December photo" loading="lazy" />
+        </div>
+      {% endfor %}
+    </div>
+
+    {{ content }}
+  </div>
+</body>
+</html>
